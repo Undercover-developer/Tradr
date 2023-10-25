@@ -1,0 +1,83 @@
+<template>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card p-3 py-4 mt-5">
+                    <div class="card-header text-center">
+                        <h4 class="mb-3">Signup</h4>
+                        <p>signup to the dashboard</p>
+                    </div>
+                    <div class="card-body">
+                        <form @submit.prevent="registerUser">
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <label class="input-label mb-2">Name</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" v-model="fullName" placeholder="Enter your fullname" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-1">
+                                    <label class="input-label mb-2">Email</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" v-model="email" placeholder="Enter your email" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="input-label mb-2">Password</label>
+                                    <div class="input-group mb-5">
+                                        <input type="password" v-model="password" placeholder="Enter your password" class="form-control"  >
+                                        <span class="input-group-text" id="basic-addon3">
+                                            <svg class="icon-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#A9A9A9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#A9A9A9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-12">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-lg form-btn" type="submit">Sign Up</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+    name: "SignUpPage",
+    data() {
+        return {
+            fullName: "",
+            email: "",
+            password: "",
+        };
+    },
+    methods: {
+        ...mapActions("account", ["register"]),
+        async registerUser() {
+            const firstName = this.fullName.split(" ")[0];
+            const lastName = this.fullName.split(" ")[1];
+            const data = {
+                firstName,
+                lastName,
+                email: this.email,
+                password: this.password,
+            };
+            this.register(data);
+        },
+    },
+}
+</script>
+
+<style>
+
+</style>
